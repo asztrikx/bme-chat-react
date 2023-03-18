@@ -1,12 +1,26 @@
-import { OutgoingPacket, InboxDto, IncomingPacket } from "./chat";
+import { OutgoingPacket, InboxDto, IncomingPacket, MessageDto } from "./chat";
+import { EventProducer } from "./EventProducer";
 
-class Proxy {
+class Proxy extends EventProducer<ProxyEventMap> {
 	private ws: WebSocket;
 	inbox: InboxDto | null = null;
 
 	constructor() {
-		this.ws = new WebSocket("ws://ws.ifelse.io/");
+		super();
+		this.ws = new WebSocket("wss://raja.aut.bme.hu/chat");
 		this.ws.addEventListener("open", () => {
+			proxy.addEventListener("login", () => {
+			  console.log("Yey!");
+			});
+
+			// ws open után lehet csak
+			proxy.sendPacket({
+			  type: "register",
+			  displayName: "0063350666",
+			  email: "bar@bar.bar",
+			  password: "baz",
+			  staySignedIn: false,
+			})		  
 		});
 		this.ws.addEventListener("message", (e) => {
 			let p = <IncomingPacket> JSON.parse(e.data);
@@ -16,15 +30,18 @@ class Proxy {
 					break;
 				case "login":
 					this.inbox = p.inbox;
+					this.dispatch("login");
 					break;
 				case "message":
 					let cid = p.channelId;
 					this.inbox!.conversations.find(
 						(x) => x.channelId === cid
 					)?.lastMessages.push(p.message);
+					this.dispatch("message", cid, p.message);
 					break;
 				case "conversationAdded":
 					this.inbox!.conversations.push(p.conversation);
+					this.dispatch("message", p.conversation.channelId);
 					break;
 			}
 		});
@@ -33,6 +50,12 @@ class Proxy {
 	sendPacket(packet: OutgoingPacket) {
 		this.ws.send(JSON.stringify(packet));
 	}
+}
+
+interface ProxyEventMap {
+	login: () => void;
+	message: (channelId: string, message: MessageDto) => void;
+	conversation: (channelId: string) => void;
 }
 
 export var proxy = new Proxy();
