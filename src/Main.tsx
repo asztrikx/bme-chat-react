@@ -1,5 +1,7 @@
 import { Component } from "react";
 import { ConversationDto } from "./chat";
+import { LeftPane } from "./LeftPane";
+import { proxy } from "./Proxy";
 
 export class Main extends Component {
 	state = { selectedConversation: undefined as ConversationDto | undefined };
