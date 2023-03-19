@@ -32,7 +32,7 @@ class Proxy extends EventProducer<ProxyEventMap> {
 					break;
 				case "conversationAdded":
 					this.inbox!.conversations.push(p.conversation);
-					this.dispatch("message", p.conversation.channelId);
+					this.dispatch("conversation", p.conversation.channelId);
 					break;
 			}
 		});
