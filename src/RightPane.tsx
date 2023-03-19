@@ -4,7 +4,7 @@ import { MessageCard } from "./MessageCard";
 import { proxy } from "./Proxy";
 import { TextInputAndButton } from "./TextInputAndButton";
 
-export class RightPane extends Component<{ conversation?: ConversationDto }> {
+export class RightPane extends Component<{ conversation?: ConversationDto, onBack: () => void }> {
 	componentDidMount() {
 		proxy.addEventListener(
 			"message",
@@ -33,7 +33,14 @@ export class RightPane extends Component<{ conversation?: ConversationDto }> {
 			<div className="right-pane column">
 				{this.props.conversation && (
 					<>
-						<div className="conversation-header">
+						<div className="conversation-header row">
+							<button
+								type="button"
+								className="only-narrow"
+								onClick={() => this.props.onBack()}
+							>
+								Back
+							</button>
 							<p>{this.props.conversation?.name}</p>
 						</div>
 						<div className="messages">

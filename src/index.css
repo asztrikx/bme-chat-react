@@ -141,6 +141,10 @@ button:hover {
     display: none;
   }
 
+  .right .right-pane.column {
+    border: none;
+  }
+
   .left .left-pane {
     flex: 1;
   }
