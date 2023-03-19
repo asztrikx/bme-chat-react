@@ -19,7 +19,7 @@ export class TextInputAndButton extends Component<TextInputAndButtonOptions> {
 	render() {
 		return (
 			<div className="text-input-and-button">
-				// nem létező propokra nem dob hibát/warningot
+				{/* nem létező propokra nem dob hibát/warningot */}
 				<TextInput {...this.props} ref={ this.textInput } onEnter={() => this.onClick()} />
 				<button type="button" onClick={() => this.onClick()}>
 					{this.props.buttonContent}
