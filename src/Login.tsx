@@ -53,7 +53,7 @@ export class Login extends Component {
 						placeholder="Display Name (Agent Smith)"
 						value={this.state.displayName}
 						onChange={(e) => {
-							this.setState({ displayName: e })
+							this.setState({ displayName: e });
 						}}
 					/>
 				)}

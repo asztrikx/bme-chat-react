@@ -9,7 +9,7 @@ export interface TextInputAndButtonOptions extends TextInputOptions {
 
 export class TextInputAndButton extends Component<TextInputAndButtonOptions> {
 	// egyszerű kód miatt
-	textInput = React.createRef<TextInput>()
+	textInput = React.createRef<TextInput>();
 	
 	onClick() {
 		if (this.props.onClick?.(this.textInput.current?.state.value ?? ""))
