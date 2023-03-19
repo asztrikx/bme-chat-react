@@ -13,7 +13,8 @@ html,
 body,
 main,
 .app,
-.main {
+.main,
+#root {
   width: 100%;
   height: 100%;
 }
