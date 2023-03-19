@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { proxy } from "./Proxy";
+import { TextInput } from "./TextInput";
 
 export class Login extends Component {
 	state = { email: "", password: "", displayName: "", register: false };
 
-	render() {
+	render() {		
 		return (
 			<div className="login">
 				<img src="logo512.png" width="256" />
@@ -25,33 +26,35 @@ export class Login extends Component {
 						{this.state.register ? "Login" : "Register"}
 					</a>
 				</p>
-				<input
+				<TextInput
 					type="email"
 					placeholder="Email (someone@example.com)"
 					value={this.state.email}
-					onChange={(e) => {
+					onChange={(e) =>{
 						this.setState((state: any) => ({
-							email: e.target.value,
-							...(state.register && e.target.value === "WYZJ90" && {displayName: "Vörös Asztrik"}),
+							email: e,
+							...(state.register && e === "WYZJ90" && {displayName: "Vörös Asztrik"}),
 						}));
 					}}
+					onEnter={() => this.onClick()}
+					autofocus={true}
 				/>
-				<input
+				<TextInput
 					type="password"
 					placeholder="Password"
 					value={this.state.password}
 					onChange={(e) =>
-						this.setState({ password: e.target.value })
+						this.setState({ password: e })
 					}
 				/>
 				{this.state.register && (
-					<input
+					<TextInput
 						type="text"
 						placeholder="Display Name (Agent Smith)"
 						value={this.state.displayName}
-						onChange={(e) =>
-							this.setState({ displayName: e.target.value })
-						}
+						onChange={(e) => {
+							this.setState({ displayName: e })
+						}}
 					/>
 				)}
 				<br />
