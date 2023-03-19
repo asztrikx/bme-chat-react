@@ -11,16 +11,7 @@ class Proxy extends EventProducer<ProxyEventMap> {
 		this.ws.addEventListener("open", () => {
 			proxy.addEventListener("login", () => {
 			  console.log("Yey!");
-			});
-
-			// ws open után lehet csak
-			proxy.sendPacket({
-			  type: "register",
-			  displayName: "0063350666",
-			  email: "bar@bar.bar",
-			  password: "baz",
-			  staySignedIn: false,
-			})		  
+			});	  
 		});
 		this.ws.addEventListener("message", (e) => {
 			let p = <IncomingPacket> JSON.parse(e.data);
